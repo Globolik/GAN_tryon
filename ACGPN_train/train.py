@@ -36,11 +36,11 @@ def morpho(mask,iter):
     new=[]
     for i in range(len(mask)):
         tem=mask[i].squeeze().reshape(256,192,1)*255
-        tem=tem.astype(np.uint8)
+        tem=tem.astype('uint8')
         tem=cv2.dilate(tem,kernel,iterations=iter)
-        tem=tem.astype(np.float64)
+        tem=tem.astype('float64')
         tem=tem.reshape(1,256,192)
-        new.append(tem.astype(np.float64)/255.0)
+        new.append(tem.astype('float64')/255.0)
     new=np.stack(new)
     return new
 def generate_label_color(inputs):
@@ -55,7 +55,7 @@ def generate_label_color(inputs):
 def complete_compose(img,mask,label):
     label=label.cpu().numpy()
     M_f=label>0
-    M_f=M_f.astype(np.int)
+    M_f=M_f.astype('int')
     M_f=torch.FloatTensor(M_f).cuda()
     masked_img=img*(1-mask)
     M_c=(1-mask.cuda())*M_f
@@ -73,9 +73,9 @@ def compose(label,mask,color_mask,edge,color,noise):
 
 def changearm(old_label):
     label=old_label
-    arm1=torch.FloatTensor((data['label'].cpu().numpy()==11).astype(np.int))
-    arm2=torch.FloatTensor((data['label'].cpu().numpy()==13).astype(np.int))
-    noise=torch.FloatTensor((data['label'].cpu().numpy()==7).astype(np.int))
+    arm1=torch.FloatTensor((data['label'].cpu().numpy()==11).astype('int'))
+    arm2=torch.FloatTensor((data['label'].cpu().numpy()==13).astype('int'))
+    noise=torch.FloatTensor((data['label'].cpu().numpy()==7).astype('int'))
     label=label*(1-arm1)+arm1*4
     label=label*(1-arm2)+arm2*4
     label=label*(1-noise)+noise*4
@@ -132,10 +132,10 @@ for epoch in range(start_epoch, opt.niter + opt.niter_decay + 1):
         save_fake = True
 
         ##add gaussian noise channel && wash the label
-        t_mask=torch.FloatTensor((data['label'].cpu().numpy()==7).astype(np.float))
+        t_mask=torch.FloatTensor((data['label'].cpu().numpy()==7).astype('float'))
         data['label']=data['label']*(1-t_mask)+t_mask*4
-        mask_clothes=torch.FloatTensor((data['label'].cpu().numpy()==4).astype(np.int))
-        mask_fore=torch.FloatTensor((data['label'].cpu().numpy()>0).astype(np.int))
+        mask_clothes=torch.FloatTensor((data['label'].cpu().numpy()==4).astype('int'))
+        mask_fore=torch.FloatTensor((data['label'].cpu().numpy()>0).astype('int'))
         img_fore=data['image']*mask_fore
         img_fore_wc=img_fore*mask_fore
         all_clothes_label=changearm(data['label'])
@@ -191,7 +191,7 @@ for epoch in range(start_epoch, opt.niter + opt.niter_decay + 1):
             combine = torch.cat([a[0],b[0],c[0],d[0],e[0],f[0]], 2).squeeze()
             cv_img=(combine.permute(1,2,0).detach().cpu().numpy()+1)/2
             writer.add_image('combine', (combine.data + 1) / 2.0, step)
-            rgb=(cv_img*255).astype(np.uint8)
+            rgb=(cv_img*255).astype('uint8')
             bgr=cv2.cvtColor(rgb,cv2.COLOR_RGB2BGR)
             cv2.imwrite('sample/test'+str(step)+'.jpg',bgr)
 
