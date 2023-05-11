@@ -116,6 +116,8 @@ save_delta = total_steps % opt.save_latest_freq
 
 step = 0
 step_per_batch = dataset_size / opt.batchSize
+print('\n\n', start_epoch, opt.niter + opt.niter_decay + 1)
+print('\n\n')
 for epoch in range(start_epoch, opt.niter + opt.niter_decay + 1):
     epoch_start_time = time.time()
     if epoch != start_epoch:
