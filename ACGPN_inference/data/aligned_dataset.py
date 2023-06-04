@@ -201,7 +201,7 @@ class AlignedDataset(BaseDataset):
         else:
             input_dict = {'label': A_tensor, 'label_ref': AR_tensor, 'image': B_tensor, 'image_ref': BR_tensor, 'path': A_path, 'path_ref': AR_path}
 
-        print(input_dict)
+        # print(input_dict)
         return input_dict
 
     def __len__(self):
