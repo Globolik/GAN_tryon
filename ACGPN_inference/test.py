@@ -126,7 +126,7 @@ for epoch in range(start_epoch, opt.niter + opt.niter_decay + 1):
 
 
         print('lLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL')
-        print(label)
+        print(data['label'])
         input('')
         ############## Forward Pass ######################
         losses, fake_image, real_image, input_label,L1_loss,style_loss,clothes_mask,CE_loss,rgb,alpha= model(Variable(data['label'].cuda()),Variable(data['edge'].cuda()),Variable(img_fore.cuda()),Variable(mask_clothes.cuda())
