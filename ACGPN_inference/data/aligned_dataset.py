@@ -118,8 +118,10 @@ class AlignedDataset(BaseDataset):
         A = Image.open(A_path).convert('L')
         AR = Image.open(AR_path).convert('L')
 
-
-  
+        print('llllllllllllllllll')
+        print(A_path)
+        print(AR_path)
+        input('')
         params = get_params(self.opt, A.size)
         if self.opt.label_nc == 0:
             transform_A = get_transform(self.opt, params)
