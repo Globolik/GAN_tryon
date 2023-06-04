@@ -124,7 +124,7 @@ for epoch in range(start_epoch, opt.niter + opt.niter_decay + 1):
         img_fore_wc = img_fore * mask_fore
         all_clothes_label = changearm(data['label'])
 
-        print(np.unique(data['label'].cuda().cpu().numpy() == 11).astype(np.float))
+        print(np.unique(data['label'].cuda().cpu().numpy()))
         input('')
         ############## Forward Pass ######################
         losses, fake_image, real_image, input_label,L1_loss,style_loss,clothes_mask,CE_loss,rgb,alpha= model(Variable(data['label'].cuda()),Variable(data['edge'].cuda()),Variable(img_fore.cuda()),Variable(mask_clothes.cuda())
