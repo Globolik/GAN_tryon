@@ -130,7 +130,6 @@ class AlignedDataset(BaseDataset):
             AR_tensor = transform_A(AR) * 255.0
 
         print(np.unique(A_tensor.numpy() == 11))
-        input('')
         B_tensor = inst_tensor = feat_tensor = 0
         ### input B (real images)
 
