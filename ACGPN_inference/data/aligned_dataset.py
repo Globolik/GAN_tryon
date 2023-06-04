@@ -14,12 +14,6 @@ class AlignedDataset(BaseDataset):
         self.root = opt.dataroot    
         self.diction={}
         ### input A (label maps)
-        if opt.isTrain or opt.use_encoded_image:
-            dir_A = '_A' if self.opt.label_nc == 0 else '_label'
-            self.dir_A = os.path.join(opt.dataroot, opt.phase + dir_A)
-            self.A_paths = sorted(make_dataset(self.dir_A))
-            self.AR_paths = make_dataset(self.dir_A)
-
         self.fine_height=256
         self.fine_width=192
         self.radius=5
@@ -40,34 +34,6 @@ class AlignedDataset(BaseDataset):
 
         self.dataset_size = len(self.A_paths)
         self.build_index(self.B_paths)
-
-        ### input E (edge_maps)
-        if opt.isTrain or opt.use_encoded_image:
-            dir_E = '_edge'
-            self.dir_E = os.path.join(opt.dataroot, opt.phase + dir_E)
-            self.E_paths = sorted(make_dataset(self.dir_E))
-            self.ER_paths = make_dataset(self.dir_E)
-
-        ### input M (masks)
-        if opt.isTrain or opt.use_encoded_image:
-            dir_M = '_mask'
-            self.dir_M = os.path.join(opt.dataroot, opt.phase + dir_M)
-            self.M_paths = sorted(make_dataset(self.dir_M))
-            self.MR_paths = make_dataset(self.dir_M)
-
-        ### input MC(color_masks)
-        if opt.isTrain or opt.use_encoded_image:
-            dir_MC = '_colormask'
-            self.dir_MC = os.path.join(opt.dataroot, opt.phase + dir_MC)
-            self.MC_paths = sorted(make_dataset(self.dir_MC))
-            self.MCR_paths = make_dataset(self.dir_MC)
-        ### input C(color)
-        if opt.isTrain or opt.use_encoded_image:
-            dir_C = '_color'
-            self.dir_C = os.path.join(opt.dataroot, opt.phase + dir_C)
-            self.C_paths = sorted(make_dataset(self.dir_C))
-            self.CR_paths = make_dataset(self.dir_C)
-        # self.build_index(self.C_paths)
 
         ### input A test (label maps)
         if not (opt.isTrain or opt.use_encoded_image):
@@ -106,7 +72,7 @@ class AlignedDataset(BaseDataset):
         #     if '000386' in x :
         #         index=k
         #         break
-        test=np.random.randint(2032)
+        test=np.random.randint(len(self.C_paths))
         # for k, s in enumerate(self.B_paths):
         #    if '006581' in s:
         #        test = k
