@@ -130,7 +130,7 @@ class AlignedDataset(BaseDataset):
             A_tensor = transform_A(A) * 255.0
 
             AR_tensor = transform_A(AR) * 255.0
-        print(np.unique(AR_tensor.numpy()))
+        print(np.unique(A_tensor.numpy()))
         # torch.FloatTensor((label.cpu().numpy() == 11).astype(np.float)).cuda()
         B_tensor = inst_tensor = feat_tensor = 0
         ### input B (real images)
