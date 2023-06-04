@@ -117,11 +117,7 @@ class AlignedDataset(BaseDataset):
         AR_path = self.AR_paths[index]
         A = Image.open(A_path).convert('L')
         AR = Image.open(AR_path).convert('L')
-
-        print('llllllllllllllllll')
-        print(A_path)
-        print(AR_path)
-        input('')
+        print(np.unique(np.array(A) == 11))
         params = get_params(self.opt, A.size)
         if self.opt.label_nc == 0:
             transform_A = get_transform(self.opt, params)
@@ -132,6 +128,9 @@ class AlignedDataset(BaseDataset):
             A_tensor = transform_A(A) * 255.0
 
             AR_tensor = transform_A(AR) * 255.0
+
+        print(np.unique(A_tensor.numpy() == 11))
+        input('')
         B_tensor = inst_tensor = feat_tensor = 0
         ### input B (real images)
 
