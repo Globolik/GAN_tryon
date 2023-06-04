@@ -118,6 +118,8 @@ class AlignedDataset(BaseDataset):
 
         A = Image.open(A_path).convert('L')
         AR = Image.open(AR_path).convert('L')
+        print(np.unique(np.array(A)))
+
         params = get_params(self.opt, A.size)
         if self.opt.label_nc == 0:
             transform_A = get_transform(self.opt, params)
@@ -128,7 +130,7 @@ class AlignedDataset(BaseDataset):
             A_tensor = transform_A(A) * 255.0
 
             AR_tensor = transform_A(AR) * 255.0
-        print()
+        print(np.unique(AR_tensor.numpy()))
         # torch.FloatTensor((label.cpu().numpy() == 11).astype(np.float)).cuda()
         B_tensor = inst_tensor = feat_tensor = 0
         ### input B (real images)
