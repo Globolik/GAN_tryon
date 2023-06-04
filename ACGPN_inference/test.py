@@ -125,10 +125,6 @@ for epoch in range(start_epoch, opt.niter + opt.niter_decay + 1):
         all_clothes_label = changearm(data['label'])
 
 
-        print('lLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL')
-        print()
-        print(torch.FloatTensor((data['label'].cuda().cpu().numpy() == 11).astype(np.float)).cuda())
-        input('')
         ############## Forward Pass ######################
         losses, fake_image, real_image, input_label,L1_loss,style_loss,clothes_mask,CE_loss,rgb,alpha= model(Variable(data['label'].cuda()),Variable(data['edge'].cuda()),Variable(img_fore.cuda()),Variable(mask_clothes.cuda())
                                                                                                     ,Variable(data['color'].cuda()),Variable(all_clothes_label.cuda()),Variable(data['image'].cuda()),Variable(data['pose'].cuda()) ,Variable(data['image'].cuda()) ,Variable(mask_fore.cuda()))
